@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	<title>Codester | Our Process</title>
+	<meta charset="utf-8">
+	<link rel="icon" href="http//dzyngiri.com/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="http//dzyngiri.com/favicon.png" type="image/x-icon" />
+    <meta name="description" content="Codester is a free responsive Bootstrap template by Dzyngiri">
+    <meta name="keywords" content="free, template, bootstrap, responsive">
+    <meta name="author" content="Inbetwin Networks">  
+	<link rel="stylesheet" href="css/bootstrap.css" type="text/css" media="screen">
+	<link rel="stylesheet" href="css/responsive.css" type="text/css" media="screen">
+	<link rel="stylesheet" href="css/style.css" type="text/css" media="screen">
+	<link href='http//fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+  <script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="js/map.js"></script>
+<script type="text/javascript" src="js/GATSP.js"></script>
+<script type="text/javascript" src="js/Unit.js"></script>
+<script type="text/javascript" src="js/defines.js"></script>
+
+<style type="text/css">
+.title{
+	text-align: center;
+	clear both;
+}
+.panel{
+	text-align: left;
+	float : left;
+}
+.canvas{
+	float : right;
+}
+.param{
+	float: top;
+}
+.inputbox{
+	width: 40px;
+}
+.console{
+	float: bottom;
+}
+#textconsole{
+	width:100%;
+	height:130px;
+}
+</style>
+  <script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/superfish.js"></script>
+    <script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
+	<script type="text/javascript" src="js/jquery.cookie.js"></script>
+	<script type="text/javascript">if($(window).width()>1024){document.write("<"+"script src='js/jquery.preloader.js'></"+"script>");}	</script>
+	<script>		
+		 jQuery(window).load(function() {	
+		 $x = $(window).width();		
+	if($x > 1024)
+	{			
+	jQuery("#content .row").preloader();    }			 
+		
+		 jQuery('.spinner').animate({'opacity':0},1000,'easeOutCubic',function (){jQuery(this).css('display','none')});	
+  		  }); 
+					
+	</script>
+
+	<!--[if lt IE 8]>
+  		<div style='text-align:center'><a href="http//www.microsoft.com/windows/internet-explorer/default.aspx?ocid=ie6_countdown_bannercode"><img src="http//www.theie6countdown.com/img/upgrade.jpg"border="0"alt=""/></a></div>  
+ 	<![endif]-->
+	<!--[if (gt IE 9)|!(IE)]><!-->
+	<!--<![endif]-->
+	<!--[if lt IE 9]>
+    <script src="http//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <link rel="stylesheet" href="css/docs.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="css/ie.css" type="text/css" media="screen">
+    <link href='http//fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http//fonts.googleapis.com/css?family=Open+Sans:400' rel='stylesheet' type='text/css'>
+  <![endif]-->
+	</head>
+
+	<body>
+<div class="spinner"></div>
+<!-- header -->
+<header>
+      <div class="container clearfix">
+    <div class="row">
+          <div class="span12">
+        <div class="navbar navbar_">
+              <div class="container">
+            <h1 class="brand brand_"><a href="index.html"><img alt="" src="img/logo.png"> </a></h1>
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse_">Menu <span class="icon-bar"></span> </a>
+            <div class="nav-collapse nav-collapse_  collapse">
+                  <ul class="nav sf-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="Basic Info.html">Basic Info</a></li>
+                <li><a href="wiki.html">Wiki</a></li>
+                <li class="sub-menu active"><a href="process.html">Demo</a>
+                      <!-- <ul>
+                    <li><a href="#">Process 01</a></li>
+                    <li><a href="#">Process 02</a></li>
+                    <li><a href="#">Process 03</a></li>
+                  </ul> -->
+                    </li>
+                <!-- <li><a href="contact.html">Source Code</a></li> -->
+              </ul>
+                </div>
+          </div>
+            </div>
+      </div>
+        </div>
+  </div>
+    </header>
+<div class="bg-content"> 
+      
+      <!-- content -->
+      
+      <div id="content"><div class="ic"></div>
+    <div class="container">
+          <div class="row">
+        <article class="span12">
+              <h4>Demos</h4>
+            </article>
+        <div class="clear"></div>
+        <ul class="thumbnails thumbnails-1 list-services">
+              <li class="span4">
+            <div class="thumbnail thumbnail-1">
+              <canvas id="ACO_Canvas" width=350 height=265></canvas>
+              <script>
+                //计时开始
+                t1 = new Date();			//创建"then"这个日期/时间对像
+                t1.setTime(t1.getTime());	//为这个对象赋值
+                 
+                var canvas = document.getElementById("ACO_Canvas");
+                var canvasWidth = canvas.width;
+                var canvasHeight = canvas.height;
+                var ctx = canvas.getContext("2d");
+                // var N = 15;   //城市数量
+                var M = 120;   //蚂蚁数量
+                 
+                var inittao = 1;   //初始路径激素量 
+                var tao;   //[N][N];     //N*N矩阵——表示i和j间残留的激素信息量, 初始化为常熟C（各路径相等），以表示激素的挥发
+                var yita; //[N][N];      //N*N矩阵——表示i和j间由举例所决定的选择概率矩阵
+                var delta_tao; //[N][N]; //一轮循环后增加的信息素
+                var distant; //[N][N];   //所有城市间的距离
+                var tabu; //[M][N];         //禁忌表
+                var route; //[M][N];        //M只蚂蚁所走过的路径
+                var solution; //[M];     //对M只蚂蚁所走过路径的适应度评价值
+                var BestRoute; //[N];       //最忌路径
+                var BestSolution = 10000000000;   //设置的极限最大路径
+                var alfa, beta, rou, Q;        //路径激素更新数量
+                var NcMax;                        //蚁群最大迭代次数
+                 
+                function initMat(M, N, val) {
+                  var x = new Array();
+                  for(var i = 0; i < M; i++) {
+                    x[i] = new Array();
+                    for(var j = 0; j < N; j++)
+                      x[i].push(val);
+                  }
+                  return x;
+                }
+                 
+                function initAllMats() {
+                  tao = initMat(N, N, 0);
+                  yita = initMat(N, N, 0);
+                  delta_tao = initMat(N, N, 0);
+                  distant = initMat(N, N, 0);
+                  tabu = initMat(M, N, 0);
+                  route = initMat(M, N, -1);
+                  
+                  solution = new Array();
+                  for(var i = 0; i < M; i++)
+                    solution[i] = 0;
+                    
+                  BestRoute = new Array();
+                  for(var i = 0; i < N; i++)
+                    BestRoute[i] = -1;
+                }
+                 
+                //初始化城市的位置
+                function InCityXY(x, y)
+                { 
+                  for(var i = 0; i < N; i++) {
+                    x[i] = (Math.random() * 32767) % 320 + 20;
+                    y[i] = (Math.random() * 32767) % 235 + 20;
+                  }
+                }
+                 
+                //初始化算法参数
+                function initparameter() 
+                { 
+                  alfa = 1;   //积累的激素调节因子作用系数
+                  beta = 5;   //启发性调节因子作用系数
+                  rou = 0.9;  
+                  Q = 100;    //常量
+                  NcMax = 200; //群蚂蚁进化代数
+                } 
+                 
+                //取得某个路径的长度
+                function EvalueSolution(a) 
+                { 
+                  var dist = 0; 
+                  for(var i = 0; i < N-1; i++)
+                    dist += distant[a[i]][a[i+1]]; 
+                  dist += distant[a[N-1]][a[0]]; 
+                  return dist; 
+                } 
+                 
+                function drawCities(x, y) {
+                  for(var i = 0; i < N; i++) {
+                    ctx.beginPath();
+                 
+                    ctx.fillStyle = "blue";
+                    ctx.strokeStyle = "blue";
+                    ctx.lineWidth = 1;
+                    ctx.font = "normal 16px Arial";
+                 
+                    ctx.arc(x[i], y[i], 3, (Math.PI / 180) * 0, (Math.PI / 180) * 360, false);
+                    ctx.fill();
+                    ctx.stroke();
+                    // context.closePath();
+                    
+                  }
+                }
+                  
+                function drawPath(x1, y1, x2, y2, color, width) {
+                  ctx.beginPath();
+                  ctx.fillStyle = color;
+                  ctx.strokeStyle = color;
+                  ctx.lineWidth = width;
+                  ctx.moveTo(x1, y1);
+                  ctx.lineTo(x2, y2);
+                  ctx.stroke();
+                }
+                 
+                //主函数
+                function ACA_TSP() {
+                  var NC = 0; 
+                  //初始化算法参数
+                  initparameter(); 
+                  
+                  //初始化城市的位置
+                  var x = new Array();
+                  var y = new Array();
+                  for(var i = 0; i < N; i++) {
+                    x.push(0);
+                    y.push(0);
+                  }
+                  //初始化城市位置
+                  InCityXY( x, y ); 
+                 
+                  //计算任意两城市间的距离
+                  for(var i=0;i<N;i++) 
+                    for(var j=i+1;j<N;j++) 
+                    { 
+                      distant[j][i] = Math.sqrt((x[i]-x[j])*(x[i]-x[j])+(y[i]-y[j])*(y[i]-y[j])); 
+                      distant[i][j] = distant[j][i]; 
+                    } 
+                  // calculate the heuristic parameters 
+                  var i, j, k;
+                  //初始化任意两点间的选择可能性程度=1-p
+                  //若i==j，则p=1
+                  //否则，p=100/distant[i][j]
+                  for(i=0;i<N;i++) 
+                    for(j=0;j<N;j++) 
+                    { 
+                      tao[i][j] = inittao; 
+                      if(j != i) 
+                        yita[i][j] = 100/distant[i][j];    //值越大，i到j被选择的路径概率越大; 或者说，i和j距离越近，被选择的概率越大
+                    } 
+                  //初始化M个蚂蚁走完所有城市(N)的路径
+                  //-1表示第k只蚂蚁尚没有从当前位置走向i城市
+                  //初始化所有蚂蚁的禁忌表
+                  for(k=0;k<M;k++) 
+                  { 
+                    route[k][0] = k % N;     //随机置放蚂蚁的第一站城市点---此代码实际上没有随机摆放
+                    tabu[k][route[k][0]] = 1;  //设置禁忌表的已访问过的城市为1
+                  } 
+                  //所有蚂蚁行走NcMax趟
+                  do { 
+                    var s = 1; 
+                    var partsum; 
+                    var pper; 
+                    var drand; 
+                 
+                    //s循环N次，让每只蚂蚁走N步，走完全程
+                    while( s < N) 
+                    { 
+                      for(k=0;k<M;k++) 
+                      { 
+                        var jrand= (Math.random() * 32767) % 3000; 
+                        drand= jrand / 3001.0; 
+                        partsum = 0; 
+                        pper = 0; 
+                        for(j=0;j<N;j++) 
+                        { 
+                          if(tabu[k][j]==0) 
+                            partsum += Math.pow(tao[route[k][s-1]][j],alfa) * Math.pow(yita[route[k][s-1]][j],beta); 
+                        } 
+                        for(j=0;j<N;j++) 
+                        { 
+                          if(tabu[k][j]==0) 
+                            pper += Math.pow(tao[route[k][s-1]][j],alfa) * Math.pow(yita[route[k][s-1]][j],beta)/partsum; 
+                          if(pper > drand) 
+                            break; 
+                        } 
+                        tabu[k][j]=1; 
+                        route[k][s]=j; 
+                      } 
+                      s++; 
+                    } 
+                    // the pheromone is updated 
+                    for(i=0;i<N;i++) 
+                      for(var j=0;j<N;j++) 
+                        delta_tao[i][j]=0; 
+                    //记录最短路径及其长度
+                    for(k=0;k<M;k++) 
+                    { 
+                      solution[k] = EvalueSolution(route[k]); 
+                      if(solution[k] < BestSolution) 
+                      { 
+                        BestSolution = solution[k]; 
+                        for(s=0; s<N; s++) 
+                          BestRoute[s]=route[k][s]; 
+                      } 
+                    } 
+                    //根据上一批次（M个蚂蚁）所求路径的长度信息，更新从i到j的选择概率
+                    for(k=0;k<M;k++) 
+                    { 
+                      for(s=0;s<N-1;s++) 
+                        delta_tao[route[k][s]][route[k][s+1]] += Q/solution[k]; 
+                      delta_tao[route[k][N-1]][route[k][0]] += Q/solution[k]; 
+                    } 
+                    //计算NxN个节点间的转移概率，并设置最大与最小值
+                    for(i=0;i<N;i++) 
+                      for(var j=0;j<N;j++) 
+                      { 
+                        tao[i][j]=rou*tao[i][j]+delta_tao[i][j]; 
+                        if(tao[i][j] < 0.00001) 
+                          tao[i][j] = 0.00001; 
+                        if(tao[i][j] > 20) 
+                          tao[i][j] = 20; 
+                      } 
+                    //重新设置所有蚂蚁的禁忌表和路径信息
+                    for(k=0;k<M;k++) 
+                      for(var j=1;j<N;j++) 
+                      { 
+                        tabu[k][route[k][j]]=0; 
+                        route[k][j]=-1; 
+                      } 
+                    NC++; 
+                  } while(NC < NcMax); 
+                  //output the calculating outs 
+                  
+                  ctx.fillStyle = "white"
+                  ctx.fillRect(0,0,350,265)
+                  for(i = 0; i < N; i++) {
+                    if (i == N - 1)
+                      j = 0;
+                    else
+                      j = i + 1;
+                    var nodeA = BestRoute[i];
+                    var nodeB = BestRoute[j];
+                    var x1 = x[nodeA];
+                    var y1 = y[nodeA];
+                    var x2 = x[nodeB];
+                    var y2 = y[nodeB];
+                    drawPath(x1, y1, x2, y2, "black", 2);
+                  }
+                  drawCities(x, y);
+                  
+                  
+                  // var out = document.getElementById("outText");
+                  // out.innerHTML = "<h1>蚂蚁克隆算法求解旅行商问题: </h1>最佳路径:<br/>";
+                  // for(i=0;i<N;i++) 
+                  //   out.innerHTML = out.innerHTML + String(BestRoute[i]) + " ";
+                  // out.innerHTML = out.innerHTML + "<br/>最短路径长度:<br/>" + BestSolution;
+                }
+                 
+                var N;//调用上述函数
+                window.onload=function()
+                {
+                  // var Num = document.getElementById("ACO_City_Number");
+                  // N = Num.value
+                  
+                  ACO_Demo.onclick = function()
+                  {
+                  
+                  var ACO_Demo = document.getElementById("ACO_Demo");
+                  var Num = document.getElementById("ACO_City_Number");
+                  N = Num.value
+                  if(isNaN(N)){
+                    alert("请输入数字！");
+                  }
+                  else{
+                    ctx.clearRect(0, 0, 500, 500);
+                    initAllMats();
+                    ACA_TSP();
+                  }
+                  }
+                }
+                </script>
+                  <section> <a id="ACO_Demo" href="#" class="link-1">ACO Demo Run</a>
+                <p><input type="text" id="ACO_City_Number" value="Enter The Number of Cities" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Enter The Number of Cities';}"></p>
+              </section>
+                </div>
+          </li>
+              <li class="span4">
+            <div class="thumbnail thumbnail-1"> 
+              <canvas id="canvas" width=350 height=265></canvas>
+     
+                  <script type="text/javascript">
+                    var city_list = [];
+                    
+                    $(document).ready(function(){
+                      canvas = $("#canvas").get(0);
+                      if(canvas.getContext){
+                        context = canvas.getContext('2d');
+                      }else{
+                        alert("对不起，您的浏览器太垃圾了!");
+                      }
+                      $('#btnstart').attr('disabled',true);
+                      $('#btnend').attr('disabled',true);
+                      
+                      $('#canvas').click(function(e) {
+                        city_list.push({x:e.offsetX,y:e.offsetY});
+                        context.beginPath();
+                        context.arc(e.offsetX,e.offsetY,5,0,Math.PI*2,true);
+                        context.closePath();
+                        if($("#if_fill").attr('checked'))
+                          context.fill();
+                        else
+                          context.stroke();
+                        if(city_list.length>=2){
+                          $('#btnstart').attr('disabled',false);
+                        }
+                       });
+                       $('#btnstart').click(function(){
+                        var param = {
+                        city:null,
+                        define_data:null
+                        };
+                        get_param(param);
+                        tsp = new GATSP(param);
+                        tsp.run();
+                        TSPLife(tsp);
+                        $('#btnend').attr('disabled',false);
+                        $('#btnstart').attr('disabled',true);
+                       });
+                       $('#btnend').click(function(){
+                        tsp.stop();
+                        $('#btnend').attr('disabled',true);
+                        $('#btnstart').attr('disabled',false);	
+                       });
+                    });
+                    
+                    //判断浏览器是否支持html5 canvas
+                    function test(){
+                      if(canvas.getContext){
+                        context.clearRect(0,0,500,500);
+                        context.fillText('恭喜您，浏览器支持HTML5!',180,250);
+                      }else{
+                        alert("对不起，你的浏览器太垃圾了!推荐使用Chrome或搜狗高速模式!");
+                      }
+                    }
+                    
+                    var TSPLife = function(){
+                        if(tsp.started){
+                          tsp.get_next_generation();
+                          tsp.render();
+                          setTimeout(TSPLife, 500);
+                        }else{
+                          $('#btnstart').attr('disabled',false);
+                        }
+                    };
+                    
+                    function end(){
+                      
+                    }
+                    
+                    function get_param(param){
+                      var define_data_list={
+                        REMAIN_RATE: $("#remain_rate").val()? $("#remain_rate").val()/100:0.2,//把父辈精英加入子代的比例
+                        UNIT_NUM: $("#unit_num").val()? $("#unit_num").val():50,//种群中个体的数目
+                        HYBRIDIZATION_RATE: $("#hybridization_rate").val()? $("#hybridization_rate").val()/100:0.85,//杂交的概率
+                        VARIATION_RATE: $("#variation_rate").val()? $("#variation_rate").val()/100:0.1,//变异的概率
+                        MAX_SAME_NUM: $("#max_same_num").val()? $("#max_same_num").val():5,//连续n代保持子代最优个体的适应度小于等于父代 就停止
+                        MAX_GENERATION: $("#max_generation").val()?$("#max_generation").val():0,//最大多少代 0代表无限制
+                        CITY_RADIUS: 3,//城市半径
+                        PATH_WIDTH: 2,//路线粗度
+                        CITY_COLOR: "#FF0000",
+                        PATH_COLOR: "#666666",
+                        IF_FILL: true
+                      };
+                      param.city = city_list;
+                      param.define_data = define_data_list;
+                    }
+                    
+                    function changecolor(option){
+                      $(option).css("background-color", option.value);
+                      if(option.value!='#000000')
+                        $(option).css("color", "#000000");
+                      else
+                        $(option).css("color", "#FFFFFF");
+                    }
+                    
+                    function new_map(){
+                      city_list = [];
+                      context.clearRect(0,0,500,500);
+                      $('#textconsole').val('');
+                      $('#btnstart').attr('disabled',true);
+                    }
+                    
+                    function draw_circle(){
+                      new_map();
+                      var margin = 50;	//边距
+                      var radius_x=150;	
+                      var radius_y=120;	
+                      var origin = {		//圆点
+                        x : 175,
+                        y : 145
+                      };
+                      //计算相邻城市之间的间隔角度
+                      var segmentSize = 2 * Math.PI / 30;
+                      var angle = 0;
+                      var cities = [];
+                      var N = $("#Number").val()
+                      for(i=0;i<N;i++)
+                      {
+                        var thisCity = {x:0,y:0};
+                        thisCity.x = 2 * radius_x * Math.random()-radius_x + origin.x;
+                        thisCity.y = 2 * radius_y * Math.random()-radius_y + origin.y;
+                      city_list.push(thisCity);}
+                      //while(angle < 2 * Math.PI){
+                        //var thisCity = {x:0,y:0};
+                        //thisCity.x = radius * Math.sin(angle) + origin.x;
+                        //thisCity.y = radius * Math.cos(angle) + origin.y;
+                        //city_list.push(thisCity);
+                        //angle = angle + segmentSize;
+                      //}
+                      draw_city(city_list,3,'#FF0000',true);
+                      $('#btnstart').attr('disabled',false);
+                    }
+                    
+                    function draw_city(points,radius,color,iffill){
+                        context.fillStyle = color;
+                        context.strokeStyle = color;
+                        for(var i=0;i<points.length;i++){
+                          context.beginPath();
+                          context.arc(points[i].x,points[i].y,radius,0,Math.PI*2,true);
+                          context.closePath();
+                          if(iffill)
+                            context.fill();
+                          else
+                            context.stroke();
+                        }	
+                    }
+                    
+                    
+                    </script>
+                  <section> <a href="#" class="link-1" style="margin-top:15px;margin-bottom:12px">GA Demo</a>
+                      <div class="button">
+                        <!-- <input type="button" id="btnnew" value="New" onclick="new_map()"></input> -->
+                        <input type="button" id="btnstart" value="Start" style="margin-bottom:15px"></input>
+                        <input type="button" id="btnend" value="End"style="margin-bottom:15px" ></input>
+                        <input type="button" id="btncircle" style="margin-bottom:15px" value="Generate City" onclick="draw_circle();"></input>
+                      </div>
+              </section>
+                </div>
+                <!-- <div class="canvas"><canvas id="canvas" width="275" height="300" style="border:1px solid #c3c3c3;">你的浏览器不支持Canvas!</canvas></div>
+                  <>       <div class="param"> -->
+                    
+                    
+                <!-- </div> -->
+          </li>
+              <li class="span4">
+            <div class="thumbnail thumbnail-1">
+                <a href="#" class="link-1" style="margin-left:100px;margin-top:10px;margin-bottom: 15px ">GA Demo Inputs</a>
+                  <div>
+                    <input class="inputbox" id="Number" style="width:200px" type="text" value="Number of Cities" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Number of Cities';}"></input> （Rec:Arbitrary）
+                  <br>
+                  <input class="inputbox" id="unit_num" style="width:200px" type="text" value="Size of Colony" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Size of Colony';}"></input> （Rec:50）
+                  <br>
+                  <input class="inputbox" id="remain_rate" style="width:200px" type="text" value="Survival Rate" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Survival Rate';}"></input>%(Rec:20%) 
+                  <br>
+                  <input class="inputbox" id="hybridization_rate" style="width:200px" type="text" value="Natural Mating Rate" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Natural Mating Rate';}"></input>%(Rec:85%）
+                  <br>
+                  <input class="inputbox" id="variation_rate" style="width:200px" type="text" value="Gene Mutation Rate" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Gene Mutationg Rate';}" ></input>%(Rec:10%）
+                  <br>
+                  <input class="inputbox" id="max_generation" style="width:200px" type="text" value="Maximum of Generation" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Maximum of Generation';}"></input> （Rec:0）
+                  <br>
+                  <input class="inputbox" id="max_same_num" style="width:200px" type="text" value="Terminal Criterial" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Terminal Criterial';}"></input> （Rec:5）
+                  <br>
+                  <a href="#" class="link-1" style="margin-top:7px;margin-bottom:20px">Attention:All the inputs must be Integers!!!
+                  </a>
+                  
+                  </div>
+                </div>
+          </li>
+              <!-- <li class="span4">
+            <div class="thumbnail thumbnail-1"> <img  src="img/service-4.jpg" alt="">
+                  <section> <a href="#" class="link-1">At vero eos et accusamus et iusto </a>
+                <p>Deleniti atque corrupti quos dolores molestias excepturi sint occaecati cupiditate nonprovident similique sunt in culpa.</p>
+              </section>
+                </div>
+          </li>
+              <li class="span4">
+            <div class="thumbnail thumbnail-1"> <img  src="img/service-5.jpg" alt="">
+                  <section> <a href="#" class="link-1">At vero eos et accusamus et iusto </a>
+                <p>Deleniti atque corrupti quos dolores molestias excepturi sint occaecati cupiditate nonprovident similique sunt in culpa.</p>
+              </section>
+                </div>
+          </li>
+              <li class="span4">
+            <div class="thumbnail thumbnail-1"> <img  src="img/service-6.jpg" alt="">
+                  <section> <a href="#" class="link-1">At vero eos et accusamus et iusto </a>
+                <p>Deleniti atque corrupti quos dolores molestias excepturi sint occaecati cupiditate nonprovident similique sunt in culpa.</p>
+              </section>
+                </div>
+          </li> -->
+            </ul>
+      </div>
+        </div>
+  </div>
+    </div>
+
+<!--============================== footer =================================-->
+<footer>
+      <div class="container clearfix">
+    <ul class="list-social pull-right">
+          <li><a class="icon-1" href="#"></a></li>
+          <li><a class="icon-2" href="#"></a></li>
+          <li><a class="icon-3" href="#"></a></li>
+          <li><a class="icon-4" href="#"></a></li>
+        </ul>
+    <div class="privacy pull-left">&copy; Copyright &copy; 2013.Company name All rights reserved.<a target="_blank" href="http//www.zjf88.com/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></div>
+  </div>
+    </footer>
+<script type="text/javascript" src="js/bootstrap.js"></script>
+<div style="display:none"><script src='http//v7.cnzz.com/stat.php?id=155540&web_id=155540' language='JavaScript' charset='gb2312'></script></div>
+</body>
+</html>
